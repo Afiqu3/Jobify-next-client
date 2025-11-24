@@ -1,12 +1,13 @@
-'use client'; 
+'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion } from 'framer-motion'; 
+import { motion } from 'framer-motion';
 const Links = ({ nav }) => {
   const pathname = usePathname();
 
-  const isActive = pathname === nav.path ||
-                  (nav.exact === false && pathname.startsWith(nav.path));
+  const isActive =
+    pathname === nav.path ||
+    (nav.exact === false && pathname.startsWith(nav.path));
 
   return (
     <motion.li
@@ -16,7 +17,7 @@ const Links = ({ nav }) => {
     >
       <Link
         href={nav.path}
-        target={nav.target || '_self'} 
+        target={nav.target || '_self'}
         className={`relative inline-block text-white hover:text-[#D2F34C] font-semibold transition-colors ${
           isActive
             ? 'bg-linear-to-r from-[#632ee3] to-[#892CDC] bg-clip-text text-transparent border-b-2 border-[#D2F34C]'

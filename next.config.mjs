@@ -2,6 +2,15 @@
 const nextConfig = {
   /* config options here */
   reactCompiler: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "demoapus1.com",
+        pathname: "/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;
