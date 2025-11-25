@@ -11,6 +11,8 @@ import logoImg from '../../assets/logo.png';
 import { Bounce, toast } from 'react-toastify';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSession, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const navigationData = [
   {
@@ -91,6 +93,23 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login");
+    }
+  }, [status, router]);
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (!session) {
+    return null;
+  }
+
   // logout
   const handleLogOut = () => {
     // signOutUser()
@@ -121,6 +140,7 @@ const Navbar = () => {
             : 'bg-[#244034] translate-y-0 scale-100'
         }`}
       >
+        <p className='text-5xl'>Welcome, {session.user?.name || session.user?.email}!</p>
         {/* <div className="absolute inset-0 bg-black/50"></div> */}
         <nav
           className={`flex justify-between items-center pt-7 max-w-6xl lg:mx-auto mx-4 md:py-5 ${
