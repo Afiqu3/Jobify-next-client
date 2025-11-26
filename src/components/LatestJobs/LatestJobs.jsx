@@ -5,6 +5,7 @@ import { motion } from 'motion/react';
 import JobCard from './JobCard';
 // import useAxios from "../../hooks/useAxios";
 import Link from 'next/link';
+import axios from 'axios';
 
 const latestJobs = [
   {
@@ -151,13 +152,15 @@ const latestJobs = [
 
 const LatestJobs = () => {
   //   const axiosInstance = useAxios();
-  //   const [latestJobs, setLatestJobs] = useState([]);
+  const [latestJobs, setLatestJobs] = useState([]);
 
-  //   useEffect(() => {
-  //     axiosInstance.get("/latest-jobs").then((data) => {
-  //       setLatestJobs(data.data);
-  //     });
-  //   }, [axiosInstance]);
+  useEffect(() => {
+    axios
+      .get('https://jobify-next-api-server.vercel.app/latest-jobs')
+      .then((data) => {
+        setLatestJobs(data.data);
+      });
+  }, []);
 
   return (
     <section className="my-30">
@@ -178,7 +181,7 @@ const LatestJobs = () => {
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
           {latestJobs.slice(0, 6).map((job, index) => (
             <motion.div
-              key={job.id}
+              key={job._id}
               initial={{
                 opacity: 0,
                 y: 30,

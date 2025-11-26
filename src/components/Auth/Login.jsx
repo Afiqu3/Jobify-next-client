@@ -1,61 +1,52 @@
 'use client';
-import React, { useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
-import { FiLogIn } from "react-icons/fi";
-import { Bounce, toast } from "react-toastify";
-import { motion } from "motion/react";
-import Link from "next/link";
+import React, { useState } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
+import { FiLogIn } from 'react-icons/fi';
+import { Bounce, toast } from 'react-toastify';
+import { motion } from 'motion/react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { signIn } from "next-auth/react";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    // console.log(email, password)
-    signInUser(email, password)
-      .then(() => {
-        // console.log(result.user);
-        toast.success("Login Successfully!", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce,
-        });
-        navigate(location?.state || "/");
-        setError("");
-      })
-      .catch(() => {
-        setLoading(false);
-        setError("Invalid Email or Password");
-      });
+
+    setError("");
+
+    const result = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+
+    if (result?.error) {
+      setError("Invalid credentials");
+    } else {
+      toast.success('Login Successfully!', {
+      position: 'top-center',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'dark',
+      transition: Bounce,
+    });
+      router.push("/"); // Redirect to dashboard after login
+    }
   };
+
   const handleGoogleLogIn = () => {
-    signInWithGoogle()
-      .then(() => {
-        toast.success("Login Successfully!", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce,
-        });
-        navigate(location?.state || "/");
-      })
-      .catch(() => {
-        // console.log(error.message);
-      });
+    signIn("google", { callbackUrl: "/" })
   };
 
   const handleTogglePassword = (e) => {
@@ -89,7 +80,7 @@ const Login = () => {
           </p>
         </div>
 
-        <form>
+        <form onSubmit={handleLogin}>
           <fieldset className="fieldset space-y-3">
             {/* email */}
             <input
@@ -102,7 +93,7 @@ const Login = () => {
             {/* password */}
             <div className="relative">
               <input
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 name="password"
                 className={`input focus:border-transparent text-black w-full`}
                 placeholder="Password"
@@ -125,7 +116,7 @@ const Login = () => {
               <button className="link link-hover">Forgot password?</button>
             </div>
             <button className="my-btn text-black flex justify-center items-center gap-2 text-base">
-              {" "}
+              {' '}
               <FiLogIn />
               Login
             </button>
@@ -137,16 +128,14 @@ const Login = () => {
           <p>or</p>
           <div className="border w-1/2 border-gray-400"></div>
         </div>
-        <button
-          className="btn btn-neutral bg-gray-800/50 hover:bg-gray-800 border text-white font-medium transition-all duration-300"
-        >
-          {" "}
+        <button onClick={handleGoogleLogIn} className="btn btn-neutral bg-gray-800/50 hover:bg-gray-800 border text-white font-medium transition-all duration-300">
+          {' '}
           <FcGoogle size={24} />
           Login With Google
         </button>
 
         <p className="text-center">
-          Do not have account? Please{" "}
+          Do not have account? Please{' '}
           <Link
             className="text-blue-500 hover:text-blue-900"
             href={'/register'}

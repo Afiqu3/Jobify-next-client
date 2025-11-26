@@ -1,16 +1,17 @@
-'use client';
 import React from 'react';
 import { FaArrowRight } from 'react-icons/fa6';
 import { format, parseISO } from 'date-fns';
+import { MdDeleteForever } from 'react-icons/md';
+import { GrUpdate } from 'react-icons/gr';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const JobCard = ({ job }) => {
+const MyJobCard = ({ job, handleDelete, handleModal }) => {
   const dateInBD = parseISO(job.postedDate);
 
   const formattedDate = format(dateInBD, 'dd-MM-yyyy');
   return (
-    <div className="bg-[rgb(249,249,249)] pb-6 shadow-sm hover:drop-shadow-md hover:-translate-y-0.5">
+    <div className="bg-[#f9f9f9] pb-6 shadow-sm hover:drop-shadow-md hover:-translate-y-0.5">
       <figure className="p-10 relative w-full h-55">
         <Image
           src={job.coverImage}
@@ -19,7 +20,7 @@ const JobCard = ({ job }) => {
           alt={job.title}
         />
       </figure>
-      
+
       <div className="mt-4 px-4">
         <p className="text-gray-400 text-sm mb-2">{job.category}</p>
         <h3 className="text-[#244034] text-xl font-semibold mb-4">
@@ -36,8 +37,25 @@ const JobCard = ({ job }) => {
           </p>
         </div>
 
+        <div className="mb-4 flex justify-between items-center">
+          <button
+            className="btn bg-white border-0 shadow-none outline outline-orange-400 text-orange-400 hover:text-black hover:bg-orange-400 hover:outline-0"
+            onClick={() => handleModal(job)}
+          >
+            <GrUpdate size={20} />
+            Update
+          </button>
+          <button
+            className="btn bg-white border-0 shadow-none outline outline-red-500 text-red-500 hover:bg-red-500 hover:text-black hover:outline-0"
+            onClick={() => handleDelete(job._id)}
+          >
+            <MdDeleteForever size={24} />
+            Delete
+          </button>
+        </div>
+
         <Link
-          href={`/allJobs/${job._id}`}
+          href={'/allJobs/${job._id}'}
           className="my-btn w-3/5 flex gap-4 items-center group transition px-4 text-black justify-center"
         >
           <span>View Details</span>{' '}
@@ -48,4 +66,4 @@ const JobCard = ({ job }) => {
   );
 };
 
-export default JobCard;
+export default MyJobCard;

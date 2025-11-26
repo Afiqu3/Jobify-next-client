@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 💼 Jobify
 
-## Getting Started
+A full-stack job management platform where users can explore, post, update, and accept jobs — built with **Next.js**, **Node.js**, **Express**, **MongoDB**, and **Firebase Authentication**.  
+This project demonstrates end-to-end CRUD operations, protected routes, and real-world integration of modern web technologies.
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🧩 Features
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### 🔐 Authentication
+- User login and registration using **Firebase Authentication**
+- Supports **Google Sign-In**
+- Displays logged-in user’s **name**
+- Protected routes for sensitive pages (`/addJob`, `/myJobs`, )
+- Users stay logged in even after refreshing the page
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 💼 Job Management
+- **Add a Job:** Authenticated users can post jobs with details like title, category, summary, salary, and vacancy.
+- **View All Jobs:** Browse all posted jobs in a grid layout.
+- **Job Details:** View complete job info with option to accept the job.
+- **Update/Delete:** Job owners can edit or delete their own jobs.
 
-## Learn More
+### 🎨 UI & UX
+- Fully responsive across **mobile, tablet, and desktop**
+- Elegant **animated banner** and dynamic sections using **Motion**
+- Interactive **Top Categories**, **About Platform**, and **FAQ** sections
+- **Toast notifications** for all success/error actions (no `alert()` used)
+- **Loading spinners** during data fetch operations
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ⚙️ Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Category | Technology |
+|-----------|-------------|
+| **Frontend** | Next.js, Tailwind CSS, DaisyUI |
+| **Backend** | Node.js, Express.js |
+| **Database** | MongoDB Atlas |
+| **Authentication** | Next Auth Authentication |
+| **HTTP Client** | Axios |
+| **UI Enhancements** | Motion, React Icons, React Spinners |
+| **Notifications** | React Toastify, SweetAlert2 |
+| **Date Handling** | date-fns |
+| **Typing Effect** | react-simple-typewriter |
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🧠 Core Functionalities
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 1. **Home Page**
+- Animated banner with CTA buttons
+- Latest 6 jobs fetched dynamically from MongoDB
+- Static sections: Top Categories, About Platform, FAQ, How It Works
+
+### 2. **All Jobs**
+- Grid layout of all jobs
+- Sorting by posted date/time
+- View Details button for each job
+
+### 3. **Add Job**
+- Form for posting new jobs (private route)
+- Auto-filled “Posted By”, “User Email”, and “Posted Date”
+- Shows toast notification on successful submission
+
+### 4. **My Added Jobs**
+- Lists jobs created by the logged-in user
+- Update and Delete options available
+- Instant UI update after deletion
+
+### 5. **Update Job**
+- Pre-filled editable form
+- Confirmation toast upon update success
+
+
+---
+## 🚀 Live Links
+
+https://jobify-a10.netlify.app/
+
