@@ -76,5 +76,5 @@ This project demonstrates end-to-end CRUD operations, protected routes, and real
 ---
 ## 🚀 Live Links
 
-https://jobify-a10.netlify.app/
+https://jobify-next-client.vercel.app
 
